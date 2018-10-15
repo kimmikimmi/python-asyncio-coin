@@ -26,6 +26,17 @@ def post_dto(request):
     return json({"received" : True, "file_names" : request.files.key(), "test_file_parameters": file_parameters})
 
 
+@app.route('/youshallnotpass') 
+async def no_no(request):
+    abort(401)
+    #this won't happen
+    text('ok')
+
+
+@app.exception(NotFound)
+def ignore_404s(request, exception):
+    return text("Yep, I totally found the page : {}" .format(request.url))
+
 
 @app.route('/')
 async def test(request):
