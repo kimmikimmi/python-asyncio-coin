@@ -17,5 +17,6 @@ Install.
 4. pip install sanic
 
 
-Execute
+Execute.
+
 python3 main.py #in project directory
