@@ -1,8 +1,21 @@
 from sanic import Sanic
 from sanic.response import json
 from sanic.response import text
+import asyncio
+
+from datetime import datetime
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
+async def tick():
+    print('Tick! The time is: %s' % datetime.now())
+
 app = Sanic()
 
+@app.listener('before_server_start')
+async def initialize_scheduler(app, loop):
+    scheduler = AsyncIOScheduler({'event_loop': loop})
+    scheduler.add_job(tick, 'interval', seconds=1)
+    scheduler.start()
 
 @app.route("/json")
 def post_json(request):
@@ -33,9 +46,6 @@ async def no_no(request):
     text('ok')
 
 
-@app.exception(NotFound)
-def ignore_404s(request, exception):
-    return text("Yep, I totally found the page : {}" .format(request.url))
 
 
 @app.route('/')
