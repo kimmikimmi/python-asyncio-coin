@@ -15,3 +15,7 @@ Install.
 2. pip install -U pybithumb
 3. pip install pandas
 4. pip install sanic
+
+
+Execute
+python3 main.py #in project directory
