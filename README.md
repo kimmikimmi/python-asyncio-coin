@@ -15,7 +15,7 @@ Requirements
  
 
 Install
-1. issue API and secret key from bithumb.co.kr then put keys into coin_service.py
+1. issue API and secret key from www.bithumb.co.kr then put keys into coin_service.py
 2. pip install -U pybithumb
 3. pip install pandas
 4. pip install sanic
