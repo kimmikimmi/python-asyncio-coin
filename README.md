@@ -3,7 +3,7 @@
 
 Requirements
 
-1. Bit thumb API Key, Secret key
+1. bithumb API Key, Secret key
 2. pybithumb
 3. pandas lib 
 4. Sanic framework
