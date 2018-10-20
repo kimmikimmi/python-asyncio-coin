@@ -20,3 +20,5 @@ Install.
 Execute.
 
 python3 main.py #in project directory
+
+![screenshot](Screenshot-1.png)
