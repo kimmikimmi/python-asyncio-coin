@@ -2,7 +2,7 @@
 
 What python-asyncio-coin does ?
 
- - This program periodically monitors the listing of coins from www.bithumb.com. If the value of a listed coin is rising, it is a program to buy & sell automatically.
+ - This program periodically monitors the listing of coins from www.bithumb.co.kr If the value of a listed coin is rising, it is a program to buy & sell automatically.
  
  
 Requirements
