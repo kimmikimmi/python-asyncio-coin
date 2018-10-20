@@ -13,8 +13,9 @@ print(api_secret)
 api = XCoinAPI(api_key, api_secret);
 
 rgParams = {
-	"order_currency" : "BTC",
-	"payment_currency" : "KRW"
+	# "order_currency" : "BTC",
+	# "payment_currency" : "KRW"
+    "currency" : "BTC"
 };
 
 account = api.xcoinApiCall("/info/account", rgParams);

@@ -1,51 +1,17 @@
 from sanic import Sanic
 from sanic.response import json
 from sanic.response import text
-from xcoin_api_client import *
-import asyncio
-
-from datetime import datetime
+from coin_service import *
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-rgParams = {
-    "order_currency" : "BTC",
-    "payment_currency" : "KRW"
-};
-apis = XCoinAPI("8e84d04225163752a59ba45688288e11", "aef55119787d67dae7a0c6e4b4bed204") # not valid tokens
-
-coin_dic = apis.xcoinApiCall("/public/ticker/ALL", rgParams)["data"];
-print(coin_dic.keys())
-
-async def get_coins():
-    print('Tick! The time is: %s' % datetime.now())
-    result = apis.xcoinApiCall("/public/ticker/ALL", rgParams)["data"];
-    print(result.keys())
-    return result
-
 app = Sanic()
-
-async def percieveChange():
-    recent = get_coins()
-    if len(coin_dic) == len(recent):
-        print("there is no change")
-        return False
-    else:
-        print("there is a new coin added")
-        keys = recent.keys()
-        bucket = {}
-        for key in keys:
-            if key not in coin_dic:
-                bucket[key] = recent[key]
-
-        for item in bucket:
-            print(item + 'is bought')
-        return True
-
 
 @app.listener('before_server_start')
 async def initialize_scheduler(app, loop):
     scheduler = AsyncIOScheduler({'event_loop': loop})
-    scheduler.add_job(get_coins, 'interval', seconds=1)
+    scheduler.add_job(check_new_coin, 'interval', seconds=1)
+    scheduler.add_job(buy_coin_in_bucket, 'interval', seconds=1)
+    scheduler.add_job(sell_coin_in_bucket, 'interval', seconds=1)
 
     scheduler.start()
 
